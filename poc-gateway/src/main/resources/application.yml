@@ -1,0 +1,25 @@
+server:
+  port: 8989
+spring:
+  application:
+    name: poc-gateway
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: user-api-get-all-users
+              uri: http://localhost:8181
+              predicates:
+                - Path=/poc-gateway/users
+                - Method=GET
+              filters:
+                - RewritePath=/poc-gateway/users, /api/users
+
+            - id: products-api-get-all-products
+              uri: http://localhost:8282
+              predicates:
+                - Path=/poc-gateway/products
+                - Method=GET
+              filters:
+                - RewritePath=/poc-gateway/products, /api/products
