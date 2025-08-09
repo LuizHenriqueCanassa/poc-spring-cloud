@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: poc-products-rest-api
+server:
+  port: 8282
