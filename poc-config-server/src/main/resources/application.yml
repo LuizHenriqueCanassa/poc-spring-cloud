@@ -1,0 +1,41 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: poc-config-server
+  cloud:
+    bus:
+      refresh:
+        enabled: true
+      enabled: true
+    config:
+      server:
+        git:
+          uri: https://github.com/LuizHenriqueCanassa/poc-spring-cloud-config-repo.git
+          username: ${GITHUB_USER}
+          password: ${GITHUB_PASS}
+          force-pull: true
+          clone-on-start: false
+          skip-ssl-validation: true
+          search-paths: poc-*
+    stream:
+      bindings:
+        springCloudBusOutput:
+          destination: poc-config-server-bus
+          binder: rabbit
+        springCloudBusInput:
+          destination: poc-config-server-bus
+          binder: rabbit
+      default-binder: rabbit
+  rabbitmq:
+    username: guest
+    password: guest
+    host: localhost
+    port: 5672
+    stream:
+      virtual-host: /
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, busrefresh, refresh, monintor

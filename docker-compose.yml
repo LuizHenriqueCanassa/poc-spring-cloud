@@ -1,0 +1,14 @@
+services:
+  rabbitmq:
+    container_name: rabbitmq-spring-cloud-poc
+    image: rabbitmq:4.1.3-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - poc-spring-cloud-network
+
+
+networks:
+  poc-spring-cloud-network:
+    driver: bridge
